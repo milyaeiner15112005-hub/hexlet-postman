@@ -1,0 +1,96 @@
+/* Подключение шрифта Raleway */
+@font-face {
+  font-family: "Raleway";
+  src: url("../assets/fonts/Raleway-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Raleway";
+  src: url("../assets/fonts/Raleway-Bold.ttf");
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Общие стили body */
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 50px;
+
+  color: #eee;
+
+  font-size: 20px;
+  line-height: 1.5;
+  font-family: Raleway, sans-serif;
+
+  background-image: linear-gradient(to right top, #222831, #282d36, #2d333b, #333841, #393e46);
+}
+
+/* Картинки */
+img {
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+/* Ссылки */
+a {
+  color: inherit;
+}
+
+/* Заголовки */
+h1 {
+  font-size: 2em;
+}
+
+h2 {
+  color: #00adb5;
+  font-size: 1.5em;
+}
+
+/* Контейнер с классом .tabs — три колонки */
+.tabs {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+/* Ссылки вкладок — три колонки, без отступов */
+.tabs-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Ссылки */
+.tab-name {
+  display: block;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  background-color: #00adb5;
+}
+
+/* При наведении и фокусе — граница снизу */
+.tab-name:hover,
+.tab-name:focus {
+  border-bottom: 3px solid #5ffbf1;
+}
+
+/* Обёртка tabs-content */
+.tabs-content {
+  background-color: #393e46;
+  padding: 0;
+}
+
+/* Элементы tabs-content-item — по умолчанию скрыты */
+.tabs-content-item {
+  display: none;
+  padding: 20px;
+}
+
+/* Показываем вкладку при наведении на ссылку */
+.tab-name[data-tab="html"]:hover ~ .tabs-content [data-tab-content="html"],
+.tab-name[data-tab="css"]:hover ~ .tabs-content [data-tab-content="css"],
+.tab-name[data-tab="js"]:hover ~ .tabs-content [data-tab-content="js"] {
+  display: block;
+}
