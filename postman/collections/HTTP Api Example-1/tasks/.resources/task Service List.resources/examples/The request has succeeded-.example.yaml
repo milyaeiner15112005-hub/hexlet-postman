@@ -1,0 +1,135 @@
+$kind: http-example
+name: The request has succeeded.
+request:
+  url: "{{baseUrl}}/tasks?skip=0&limit=30&select=string,string"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    skip: "0"
+    limit: "30"
+    select: string,string
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "tasks": [
+          {
+            "id": 1,
+            "title": "Publish the JavaScript basics course",
+            "description": "The author has prepared the course, it is ready to be published",
+            "status": "Backlog"
+          },
+          {
+            "id": 2,
+            "title": "Record a screencast about HTTP API",
+            "description": "Show how REST differs from RPC",
+            "status": "In Progress"
+          },
+          {
+            "id": 3,
+            "title": "Update the documentation",
+            "description": "Describe the /rpc endpoint in the specification",
+            "status": "Done"
+          }
+        ],
+        "total": 20,
+        "skip": 0,
+        "limit": 30
+      }
+    $type: |-
+      {
+        "type": "object",
+        "example": {
+          "tasks": [
+            {
+              "id": 1,
+              "title": "Publish the JavaScript basics course",
+              "description": "The author has prepared the course, it is ready to be published",
+              "status": "Backlog"
+            },
+            {
+              "id": 2,
+              "title": "Record a screencast about HTTP API",
+              "description": "Show how REST differs from RPC",
+              "status": "In Progress"
+            },
+            {
+              "id": 3,
+              "title": "Update the documentation",
+              "description": "Describe the /rpc endpoint in the specification",
+              "status": "Done"
+            }
+          ],
+          "total": 20,
+          "skip": 0,
+          "limit": 30
+        },
+        "properties": {
+          "tasks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "example": {
+                "id": 1,
+                "title": "Publish the JavaScript basics course",
+                "description": "The author has prepared the course, it is ready to be published",
+                "status": "Backlog"
+              },
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "Backlog",
+                    "Ready",
+                    "In Progress",
+                    "Done",
+                    "Archived"
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "title",
+                "description",
+                "status"
+              ]
+            }
+          },
+          "total": {
+            "type": "integer"
+          },
+          "skip": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "tasks",
+          "total",
+          "skip",
+          "limit"
+        ]
+      }
+order: 1000

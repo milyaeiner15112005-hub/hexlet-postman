@@ -1,0 +1,92 @@
+$kind: http-example
+name: The request has succeeded.
+request:
+  url: "{{baseUrl}}/users/:authorId/comments?skip=0&limit=30&select=string"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    skip: "0"
+    limit: "30"
+    select: string
+  pathVariables:
+    authorId: string
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "comments": [
+          {
+            "id": 3213,
+            "authorId": 7416,
+            "postId": 7536,
+            "body": "string"
+          },
+          {
+            "id": 5929,
+            "authorId": 5363,
+            "postId": 8014,
+            "body": "str"
+          }
+        ],
+        "total": 8709,
+        "skip": 5940,
+        "limit": 30
+      }
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "comments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "authorId": {
+                  "type": "integer"
+                },
+                "postId": {
+                  "type": "integer"
+                },
+                "body": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id",
+                "authorId",
+                "postId",
+                "body"
+              ]
+            }
+          },
+          "total": {
+            "type": "integer"
+          },
+          "skip": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "comments",
+          "total",
+          "skip",
+          "limit"
+        ]
+      }
+order: 1000

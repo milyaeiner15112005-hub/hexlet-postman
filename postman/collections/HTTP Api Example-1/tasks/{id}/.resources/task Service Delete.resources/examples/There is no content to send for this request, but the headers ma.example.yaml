@@ -1,0 +1,17 @@
+$kind: http-example
+name: There is no content to send for this request, but the headers may be useful.
+request:
+  url: "{{baseUrl}}/tasks/:id"
+  method: DELETE
+  pathVariables:
+    id: string
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 204
+  statusText: No Content
+  body:
+    type: text
+    content: ""
+order: 1000

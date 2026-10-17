@@ -1,0 +1,62 @@
+$kind: http-example
+name: The request has succeeded.
+request:
+  url: "{{baseUrl}}/comments/:id"
+  method: PATCH
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    id: string
+  body:
+    type: json
+    content: |-
+      {
+        "postId": 5052,
+        "body": "string"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": 2844,
+        "authorId": 7939,
+        "postId": 8231,
+        "body": "string"
+      }
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "authorId": {
+            "type": "integer"
+          },
+          "postId": {
+            "type": "integer"
+          },
+          "body": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "authorId",
+          "postId",
+          "body"
+        ]
+      }
+order: 1000

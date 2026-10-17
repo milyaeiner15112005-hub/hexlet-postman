@@ -1,0 +1,55 @@
+$kind: http-example
+name: The request has succeeded.
+request:
+  url: "{{baseUrl}}/posts/:id?select=string"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    select: string
+  pathVariables:
+    id: string
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": 4893,
+        "authorId": 6087,
+        "title": "string",
+        "body": "string"
+      }
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "authorId": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "body": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "authorId",
+          "title",
+          "body"
+        ]
+      }
+order: 1000

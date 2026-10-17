@@ -1,0 +1,41 @@
+$kind: http-request
+description: ""
+url: "{{baseUrl}}/courses/:id?select=string"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: select
+    value: string
+    disabled: false
+    description: ""
+    $type: string
+pathVariables:
+  - key: id
+    value: string
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: text
+  content: ""
+auth:
+  type: apikey
+  credentials:
+    key: X-API-KEY
+    value: "{{apiKey}}"
+    in: header
+settings: {}
+examples: ./.resources/course Service Get.resources/examples
+order: 1000

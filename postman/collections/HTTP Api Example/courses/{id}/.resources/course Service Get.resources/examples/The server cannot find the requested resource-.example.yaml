@@ -1,0 +1,23 @@
+$kind: http-example
+name: The server cannot find the requested resource.
+request:
+  url: "{{baseUrl}}/courses/:id?select=string"
+  method: GET
+  headers:
+    - key: X-API-KEY
+      value: <API Key>
+      description: "Added as a part of security scheme: apikey"
+  queryParams:
+    select: string
+  pathVariables:
+    id: string
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 404
+  statusText: Not Found
+  body:
+    type: text
+    content: ""
+order: 2000

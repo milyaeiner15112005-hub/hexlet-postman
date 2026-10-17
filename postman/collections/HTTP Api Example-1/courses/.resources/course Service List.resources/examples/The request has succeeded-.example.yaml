@@ -1,0 +1,121 @@
+$kind: http-example
+name: The request has succeeded.
+request:
+  url: "{{baseUrl}}/courses?skip=0&limit=30&select=string,string"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: X-API-KEY
+      value: <API Key>
+      description: "Added as a part of security scheme: apikey"
+  queryParams:
+    skip: "0"
+    limit: "30"
+    select: string,string
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "courses": [
+          {
+            "id": 1,
+            "title": "HTTP API",
+            "description": "Designing and calling APIs over HTTP"
+          },
+          {
+            "id": 2,
+            "title": "The HTTP protocol",
+            "description": "Requests, responses, status codes and headers"
+          },
+          {
+            "id": 3,
+            "title": "JavaScript basics",
+            "description": "A first programming language from scratch"
+          }
+        ],
+        "total": 3,
+        "skip": 0,
+        "limit": 30
+      }
+    $type: |-
+      {
+        "type": "object",
+        "example": {
+          "courses": [
+            {
+              "id": 1,
+              "title": "HTTP API",
+              "description": "Designing and calling APIs over HTTP"
+            },
+            {
+              "id": 2,
+              "title": "The HTTP protocol",
+              "description": "Requests, responses, status codes and headers"
+            },
+            {
+              "id": 3,
+              "title": "JavaScript basics",
+              "description": "A first programming language from scratch"
+            }
+          ],
+          "total": 3,
+          "skip": 0,
+          "limit": 30
+        },
+        "properties": {
+          "courses": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "example": {
+                "id": 1,
+                "title": "HTTP API",
+                "description": "Designing and calling APIs over HTTP"
+              },
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id",
+                "title",
+                "description"
+              ]
+            }
+          },
+          "total": {
+            "type": "integer"
+          },
+          "skip": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "courses",
+          "total",
+          "skip",
+          "limit"
+        ]
+      }
+order: 1000

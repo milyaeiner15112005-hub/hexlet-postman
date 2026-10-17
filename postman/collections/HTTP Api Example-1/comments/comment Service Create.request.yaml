@@ -1,0 +1,38 @@
+$kind: http-request
+description: ""
+url: "{{baseUrl}}/comments"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "postId": 2344,
+      "body": "string"
+    }
+  $type: |-
+    {
+      "type": "object",
+      "properties": {
+        "postId": {
+          "type": "integer"
+        },
+        "body": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "postId",
+        "body"
+      ]
+    }
+auth:
+  type: bearer
+  credentials:
+    token: "{{bearerToken}}"
+settings: {}
+examples: ./.resources/comment Service Create.resources/examples
+order: 2000

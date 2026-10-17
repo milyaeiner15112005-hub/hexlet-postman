@@ -1,0 +1,64 @@
+$kind: http-request
+description: ""
+url: "{{baseUrl}}/tasks/:id"
+method: PATCH
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: id
+    value: string
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: json
+  content: |-
+    {
+      "title": "string",
+      "description": "string",
+      "status": "Archived"
+    }
+  $type: |-
+    {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Backlog",
+            "Ready",
+            "In Progress",
+            "Done",
+            "Archived"
+          ]
+        }
+      }
+    }
+auth:
+  type: basic
+  credentials:
+    username: "{{basicAuthUsername}}"
+    password: "{{basicAuthPassword}}"
+settings: {}
+examples: ./.resources/task Service Update.resources/examples
+order: 2000

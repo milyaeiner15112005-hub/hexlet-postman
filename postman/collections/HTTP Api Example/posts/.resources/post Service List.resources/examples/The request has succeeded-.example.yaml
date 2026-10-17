@@ -1,0 +1,91 @@
+$kind: http-example
+name: The request has succeeded.
+request:
+  url: "{{baseUrl}}/posts?skip=0&limit=30&select=string"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    skip: "0"
+    limit: "30"
+    select: string
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "posts": [
+          {
+            "id": 900,
+            "authorId": 57,
+            "title": "string",
+            "body": "string"
+          },
+          {
+            "id": 7337,
+            "authorId": 6165,
+            "title": "string",
+            "body": "string"
+          }
+        ],
+        "total": 558,
+        "skip": 9145,
+        "limit": 30
+      }
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "posts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "authorId": {
+                  "type": "integer"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "body": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id",
+                "authorId",
+                "title",
+                "body"
+              ]
+            }
+          },
+          "total": {
+            "type": "integer"
+          },
+          "skip": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "posts",
+          "total",
+          "skip",
+          "limit"
+        ]
+      }
+order: 1000

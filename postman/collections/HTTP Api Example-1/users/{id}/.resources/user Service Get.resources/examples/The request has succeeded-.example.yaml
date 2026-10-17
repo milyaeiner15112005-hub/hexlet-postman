@@ -1,0 +1,62 @@
+$kind: http-example
+name: The request has succeeded.
+request:
+  url: "{{baseUrl}}/users/:id?select=string"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    select: string
+  pathVariables:
+    id: string
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": 1,
+        "email": "max@hotmail.com",
+        "firstName": "Allison",
+        "lastName": "Bernier"
+      }
+    $type: |-
+      {
+        "type": "object",
+        "example": {
+          "id": 1,
+          "email": "max@hotmail.com",
+          "firstName": "Allison",
+          "lastName": "Bernier"
+        },
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "email": {
+            "type": "string",
+            "minLength": 1
+          },
+          "firstName": {
+            "type": "string",
+            "minLength": 1
+          },
+          "lastName": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "firstName",
+          "lastName"
+        ]
+      }
+order: 1000

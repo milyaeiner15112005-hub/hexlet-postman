@@ -1,0 +1,1328 @@
+openapi: 3.0.0
+info:
+  title: HTTP Api Example
+  version: "1.0"
+tags:
+  - name: Users
+  - name: Posts
+  - name: Comments
+  - name: Auth
+  - name: Courses
+  - name: Tasks
+paths:
+  /comments:
+    get:
+      operationId: commentServiceList
+      parameters:
+        - name: skip
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: uint16
+            default: 0
+          explode: false
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: uint16
+            default: 30
+          explode: false
+        - name: select
+          in: query
+          required: false
+          schema:
+            type: string
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comments"
+      tags:
+        - Comments
+    post:
+      operationId: commentServiceCreate
+      parameters: []
+      responses:
+        "201":
+          description: The request has succeeded and a new resource has been created as a
+            result.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comment"
+      tags:
+        - Comments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewCommentDto"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/NewCommentDto"
+      security:
+        - BearerAuth: []
+  /comments/{id}:
+    get:
+      operationId: commentServiceGet
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: select
+          in: query
+          required: false
+          schema:
+            type: string
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comment"
+        "404":
+          description: The server cannot find the requested resource.
+      tags:
+        - Comments
+    patch:
+      operationId: commentServiceUpdate
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comment"
+        "404":
+          description: The server cannot find the requested resource.
+      tags:
+        - Comments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EditCommentDto"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/EditCommentDto"
+      security:
+        - BearerAuth: []
+    delete:
+      operationId: commentServiceDelete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: There is no content to send for this request, but the headers may
+            be useful.
+        "404":
+          description: The server cannot find the requested resource.
+      tags:
+        - Comments
+      security:
+        - BearerAuth: []
+  /courses:
+    get:
+      operationId: courseServiceList
+      parameters:
+        - name: skip
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: uint16
+            default: 0
+          explode: false
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: uint16
+            default: 30
+          explode: false
+        - name: select
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Courses"
+      tags:
+        - Courses
+      security:
+        - ApiKeyAuth: []
+    post:
+      operationId: courseServiceCreate
+      parameters: []
+      responses:
+        "201":
+          description: The request has succeeded and a new resource has been created as a
+            result.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Course"
+      tags:
+        - Courses
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewCourseDto"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/NewCourseDto"
+      security:
+        - ApiKeyAuth: []
+  /courses/{id}:
+    get:
+      operationId: courseServiceGet
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: select
+          in: query
+          required: false
+          schema:
+            type: string
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Course"
+      tags:
+        - Courses
+      security:
+        - ApiKeyAuth: []
+    patch:
+      operationId: courseServiceUpdate
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Course"
+      tags:
+        - Courses
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EditCourseDto"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/EditCourseDto"
+      security:
+        - ApiKeyAuth: []
+    delete:
+      operationId: courseServiceDelete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: "There is no content to send for this request, but the headers may
+            be useful. "
+      tags:
+        - Courses
+      security:
+        - ApiKeyAuth: []
+  /login:
+    post:
+      operationId: authServiceCreate
+      parameters: []
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthToken"
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthData"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/AuthData"
+  /posts:
+    get:
+      operationId: postServiceList
+      parameters:
+        - name: skip
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: uint16
+            default: 0
+          explode: false
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: uint16
+            default: 30
+          explode: false
+        - name: select
+          in: query
+          required: false
+          schema:
+            type: string
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Posts"
+      tags:
+        - Posts
+    post:
+      operationId: postServiceCreate
+      parameters: []
+      responses:
+        "201":
+          description: The request has succeeded and a new resource has been created as a
+            result.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+      tags:
+        - Posts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewPostDto"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/NewPostDto"
+      security:
+        - BearerAuth: []
+  /posts/{id}:
+    get:
+      operationId: postServiceGet
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: select
+          in: query
+          required: false
+          schema:
+            type: string
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        "404":
+          description: The server cannot find the requested resource.
+      tags:
+        - Posts
+    patch:
+      operationId: postServiceUpdate
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        "404":
+          description: The server cannot find the requested resource.
+      tags:
+        - Posts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EditPostDto"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/EditPostDto"
+      security:
+        - BearerAuth: []
+    delete:
+      operationId: postServiceDelete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: There is no content to send for this request, but the headers may
+            be useful.
+        "404":
+          description: The server cannot find the requested resource.
+      tags:
+        - Posts
+      security:
+        - BearerAuth: []
+  /posts/{postId}/comments:
+    get:
+      operationId: postServiceGetComments
+      parameters:
+        - name: postId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: skip
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: uint16
+            default: 0
+          explode: false
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: uint16
+            default: 30
+          explode: false
+        - name: select
+          in: query
+          required: false
+          schema:
+            type: string
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comments"
+      tags:
+        - Posts
+  /tasks:
+    get:
+      operationId: taskServiceList
+      parameters:
+        - name: skip
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: uint16
+            default: 0
+          explode: false
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: uint16
+            default: 30
+          explode: false
+        - name: select
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tasks"
+      tags:
+        - Tasks
+    post:
+      operationId: taskServiceCreate
+      parameters: []
+      responses:
+        "201":
+          description: The request has succeeded and a new resource has been created as a
+            result.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+      tags:
+        - Tasks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewTaskDto"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/NewTaskDto"
+  /tasks/{id}:
+    get:
+      operationId: taskServiceGet
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: select
+          in: query
+          required: false
+          schema:
+            type: string
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+        "404":
+          description: The server cannot find the requested resource.
+      tags:
+        - Tasks
+    patch:
+      operationId: taskServiceUpdate
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+        "404":
+          description: The server cannot find the requested resource.
+      tags:
+        - Tasks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EditTaskDto"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/EditTaskDto"
+    delete:
+      operationId: taskServiceDelete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: There is no content to send for this request, but the headers may
+            be useful.
+        "404":
+          description: The server cannot find the requested resource.
+      tags:
+        - Tasks
+  /users:
+    get:
+      operationId: userServiceList
+      parameters:
+        - name: skip
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: uint16
+            default: 0
+          explode: false
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: uint16
+            default: 30
+          explode: false
+        - name: select
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Users"
+      tags:
+        - Users
+    post:
+      operationId: userServiceCreate
+      parameters: []
+      responses:
+        "201":
+          description: The request has succeeded and a new resource has been created as a
+            result.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewUserDto"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/NewUserDto"
+  /users/{authorId}/comments:
+    get:
+      operationId: userServiceGetComments
+      parameters:
+        - name: authorId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: skip
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: uint16
+            default: 0
+          explode: false
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: uint16
+            default: 30
+          explode: false
+        - name: select
+          in: query
+          required: false
+          schema:
+            type: string
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comments"
+      tags:
+        - Users
+  /users/{authorId}/posts:
+    get:
+      operationId: userServiceGetPosts
+      parameters:
+        - name: authorId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: skip
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: uint16
+            default: 0
+          explode: false
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: uint16
+            default: 30
+          explode: false
+        - name: select
+          in: query
+          required: false
+          schema:
+            type: string
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Posts"
+      tags:
+        - Users
+  /users/{id}:
+    get:
+      operationId: userServiceGet
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: select
+          in: query
+          required: false
+          schema:
+            type: string
+          explode: false
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          description: The server cannot find the requested resource.
+      tags:
+        - Users
+    patch:
+      operationId: userServiceUpdate
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          description: The server cannot find the requested resource.
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EditUserDto"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/EditUserDto"
+      security:
+        - BearerAuth: []
+    delete:
+      operationId: userServiceDelete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: There is no content to send for this request, but the headers may
+            be useful.
+        "404":
+          description: The server cannot find the requested resource.
+      tags:
+        - Users
+      security:
+        - BearerAuth: []
+components:
+  schemas:
+    AuthData:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          minLength: 1
+        password:
+          type: string
+          minLength: 1
+    AuthToken:
+      type: object
+      required:
+        - token
+      properties:
+        token:
+          type: string
+          minLength: 1
+      example:
+        token: r4AR4Fo0j29s9mFk4IUVA2rGTQmIrHWlioifaJLSQQYHbTXHxtSLFUVp8PANrRoAb7fgkSsbN7lt4a86pcJ07ivUpxBLyyCHaY4Pp9I7hRPphCHM7xpZ1om1
+    Comment:
+      type: object
+      required:
+        - id
+        - authorId
+        - postId
+        - body
+      properties:
+        id:
+          type: integer
+          format: uint16
+        authorId:
+          type: integer
+          format: uint16
+        postId:
+          type: integer
+          format: uint16
+        body:
+          type: string
+          minLength: 1
+      example:
+        id: 1
+        authorId: 2
+        postId: 1
+        body: Thanks, headers finally make sense to me
+    Comments:
+      type: object
+      required:
+        - comments
+        - total
+        - skip
+        - limit
+      properties:
+        comments:
+          type: array
+          items:
+            $ref: "#/components/schemas/Comment"
+        total:
+          type: integer
+          format: uint16
+        skip:
+          type: integer
+          format: uint16
+          default: 0
+        limit:
+          type: integer
+          format: uint16
+          default: 30
+      example:
+        comments:
+          - id: 1
+            authorId: 2
+            postId: 1
+            body: Thanks, headers finally make sense to me
+          - id: 2
+            authorId: 3
+            postId: 1
+            body: Where can I read more about this?
+          - id: 3
+            authorId: 4
+            postId: 1
+            body: The diagram is very clear, bookmarked it
+        total: 30
+        skip: 0
+        limit: 3
+    Course:
+      type: object
+      required:
+        - id
+        - title
+        - description
+      properties:
+        id:
+          type: integer
+          format: uint16
+        title:
+          type: string
+          minLength: 1
+        description:
+          type: string
+          minLength: 1
+      example:
+        id: 1
+        title: HTTP API
+        description: Designing and calling APIs over HTTP
+    Courses:
+      type: object
+      required:
+        - courses
+        - total
+        - skip
+        - limit
+      properties:
+        courses:
+          type: array
+          items:
+            $ref: "#/components/schemas/Course"
+        total:
+          type: integer
+          format: uint16
+        skip:
+          type: integer
+          format: uint16
+          default: 0
+        limit:
+          type: integer
+          format: uint16
+          default: 30
+      example:
+        courses:
+          - id: 1
+            title: HTTP API
+            description: Designing and calling APIs over HTTP
+          - id: 2
+            title: The HTTP protocol
+            description: Requests, responses, status codes and headers
+          - id: 3
+            title: JavaScript basics
+            description: A first programming language from scratch
+        total: 3
+        skip: 0
+        limit: 30
+    EditCommentDto:
+      type: object
+      properties:
+        postId:
+          type: integer
+          format: uint16
+        body:
+          type: string
+          minLength: 1
+    EditCourseDto:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+        description:
+          type: string
+          minLength: 1
+    EditPostDto:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+        body:
+          type: string
+          minLength: 1
+    EditTaskDto:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+        description:
+          type: string
+          minLength: 1
+        status:
+          $ref: "#/components/schemas/Status"
+    EditUserDto:
+      type: object
+      properties:
+        email:
+          type: string
+          minLength: 1
+        firstName:
+          type: string
+          minLength: 1
+        lastName:
+          type: string
+          minLength: 1
+    NewCommentDto:
+      type: object
+      required:
+        - postId
+        - body
+      properties:
+        postId:
+          type: integer
+          format: uint16
+        body:
+          type: string
+          minLength: 1
+    NewCourseDto:
+      type: object
+      required:
+        - title
+        - description
+      properties:
+        title:
+          type: string
+          minLength: 1
+        description:
+          type: string
+          minLength: 1
+    NewPostDto:
+      type: object
+      required:
+        - title
+        - body
+      properties:
+        title:
+          type: string
+          minLength: 1
+        body:
+          type: string
+          minLength: 1
+    NewTaskDto:
+      type: object
+      required:
+        - title
+        - description
+      properties:
+        title:
+          type: string
+          minLength: 1
+        description:
+          type: string
+          minLength: 1
+        status:
+          allOf:
+            - $ref: "#/components/schemas/Status"
+          default: Backlog
+    NewUserDto:
+      type: object
+      required:
+        - email
+        - firstName
+        - lastName
+        - password
+      properties:
+        email:
+          type: string
+          minLength: 1
+        firstName:
+          type: string
+          minLength: 1
+        lastName:
+          type: string
+          minLength: 1
+        password:
+          type: string
+          minLength: 1
+    Post:
+      type: object
+      required:
+        - id
+        - authorId
+        - title
+        - body
+      properties:
+        id:
+          type: integer
+          format: uint16
+        authorId:
+          type: integer
+          format: uint16
+        title:
+          type: string
+          minLength: 1
+        body:
+          type: string
+          minLength: 1
+      example:
+        id: 1
+        authorId: 1
+        title: How HTTP works
+        body: "Taking a request and a response apart: request line, headers, body"
+    Posts:
+      type: object
+      required:
+        - posts
+        - total
+        - skip
+        - limit
+      properties:
+        posts:
+          type: array
+          items:
+            $ref: "#/components/schemas/Post"
+        total:
+          type: integer
+          format: uint16
+        skip:
+          type: integer
+          format: uint16
+        limit:
+          type: integer
+          format: uint16
+          default: 30
+      example:
+        posts:
+          - id: 1
+            authorId: 1
+            title: How HTTP works
+            body: "Taking a request and a response apart: request line, headers, body"
+          - id: 2
+            authorId: 1
+            title: Status codes in practice
+            body: How 401 differs from 403 and why 404 shows up more often than the rest
+          - id: 3
+            authorId: 1
+            title: REST and RPC
+            body: The same list of tasks served in two different ways
+        total: 40
+        skip: 0
+        limit: 3
+    Status:
+      type: string
+      enum:
+        - Backlog
+        - Ready
+        - In Progress
+        - Done
+        - Archived
+    Task:
+      type: object
+      required:
+        - id
+        - title
+        - description
+        - status
+      properties:
+        id:
+          type: integer
+          format: uint16
+        title:
+          type: string
+          minLength: 1
+        description:
+          type: string
+          minLength: 1
+        status:
+          $ref: "#/components/schemas/Status"
+      example:
+        id: 1
+        title: Publish the JavaScript basics course
+        description: The author has prepared the course, it is ready to be published
+        status: Backlog
+    Tasks:
+      type: object
+      required:
+        - tasks
+        - total
+        - skip
+        - limit
+      properties:
+        tasks:
+          type: array
+          items:
+            $ref: "#/components/schemas/Task"
+        total:
+          type: integer
+          format: uint16
+        skip:
+          type: integer
+          format: uint16
+          default: 0
+        limit:
+          type: integer
+          format: uint16
+          default: 30
+      example:
+        tasks:
+          - id: 1
+            title: Publish the JavaScript basics course
+            description: The author has prepared the course, it is ready to be published
+            status: Backlog
+          - id: 2
+            title: Record a screencast about HTTP API
+            description: Show how REST differs from RPC
+            status: In Progress
+          - id: 3
+            title: Update the documentation
+            description: Describe the /rpc endpoint in the specification
+            status: Done
+        total: 20
+        skip: 0
+        limit: 30
+    User:
+      type: object
+      required:
+        - id
+        - email
+        - firstName
+        - lastName
+      properties:
+        id:
+          type: integer
+          format: uint16
+        email:
+          type: string
+          minLength: 1
+        firstName:
+          type: string
+          minLength: 1
+        lastName:
+          type: string
+          minLength: 1
+      example:
+        id: 1
+        email: max@hotmail.com
+        firstName: Allison
+        lastName: Bernier
+    Users:
+      type: object
+      required:
+        - users
+        - total
+        - skip
+        - limit
+      properties:
+        users:
+          type: array
+          items:
+            $ref: "#/components/schemas/User"
+        total:
+          type: integer
+          format: uint16
+        skip:
+          type: integer
+          format: uint16
+          default: 0
+        limit:
+          type: integer
+          format: uint16
+          default: 30
+      example:
+        users:
+          - id: 1
+            email: max@hotmail.com
+            firstName: Allison
+            lastName: Bernier
+          - id: 2
+            email: Colt97@yahoo.com
+            firstName: Hudson
+            lastName: Schowalter
+          - id: 3
+            email: Landen50@gmail.com
+            firstName: Reinhold
+            lastName: Langosh
+          - id: 4
+            email: Marcus.Kunde@hotmail.com
+            firstName: Marcus
+            lastName: Kunde
+          - id: 5
+            email: Elena_Padberg@yahoo.com
+            firstName: Elena
+            lastName: Padberg
+          - id: 6
+            email: Oscar.Runolfsson@gmail.com
+            firstName: Oscar
+            lastName: Runolfsson
+          - id: 7
+            email: Nadia_Hessel@outlook.com
+            firstName: Nadia
+            lastName: Hessel
+          - id: 8
+            email: Felix.Wiegand@yahoo.com
+            firstName: Felix
+            lastName: Wiegand
+          - id: 9
+            email: Iris_Turcotte@gmail.com
+            firstName: Iris
+            lastName: Turcotte
+          - id: 10
+            email: Damian.Volkman@hotmail.com
+            firstName: Damian
+            lastName: Volkman
+        total: 10
+        skip: 0
+        limit: 30
+    Versions:
+      type: string
+      enum:
+        - "1.0"
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: Bearer
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+servers:
+  - url: /http-api
+    description: Server endpoint
+    variables: {}

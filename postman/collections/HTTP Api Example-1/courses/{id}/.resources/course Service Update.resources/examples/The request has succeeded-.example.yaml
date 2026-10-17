@@ -1,0 +1,63 @@
+$kind: http-example
+name: The request has succeeded.
+request:
+  url: "{{baseUrl}}/courses/:id"
+  method: PATCH
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: X-API-KEY
+      value: <API Key>
+      description: "Added as a part of security scheme: apikey"
+  pathVariables:
+    id: string
+  body:
+    type: json
+    content: |-
+      {
+        "title": "string",
+        "description": "string"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": 1,
+        "title": "HTTP API",
+        "description": "Designing and calling APIs over HTTP"
+      }
+    $type: |-
+      {
+        "type": "object",
+        "example": {
+          "id": 1,
+          "title": "HTTP API",
+          "description": "Designing and calling APIs over HTTP"
+        },
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "description"
+        ]
+      }
+order: 1000

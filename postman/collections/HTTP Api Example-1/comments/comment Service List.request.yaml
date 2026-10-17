@@ -1,0 +1,46 @@
+$kind: http-request
+description: ""
+url: "{{baseUrl}}/comments?skip=0&limit=30&select=string"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: skip
+    value: "0"
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "default": 0
+          }
+        }
+      }
+  - key: limit
+    value: "30"
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "default": 30
+          }
+        }
+      }
+  - key: select
+    value: string
+    disabled: false
+    description: ""
+    $type: string
+body:
+  type: text
+  content: ""
+settings: {}
+examples: ./.resources/comment Service List.resources/examples
+order: 1000

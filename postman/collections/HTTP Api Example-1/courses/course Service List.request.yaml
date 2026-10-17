@@ -1,0 +1,52 @@
+$kind: http-request
+description: ""
+url: "{{baseUrl}}/courses?skip=0&limit=30&select=string,string"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: skip
+    value: "0"
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "default": 0
+          }
+        }
+      }
+  - key: limit
+    value: "30"
+    disabled: false
+    description: ""
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "default": 30
+          }
+        }
+      }
+  - key: select
+    value: string,string
+    disabled: false
+    description: ""
+    $type: array
+body:
+  type: text
+  content: ""
+auth:
+  type: apikey
+  credentials:
+    key: X-API-KEY
+    value: "{{apiKey}}"
+    in: header
+settings: {}
+examples: ./.resources/course Service List.resources/examples
+order: 1000

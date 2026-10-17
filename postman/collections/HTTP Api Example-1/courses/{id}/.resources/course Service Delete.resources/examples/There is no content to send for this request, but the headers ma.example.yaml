@@ -1,0 +1,21 @@
+$kind: http-example
+name: There is no content to send for this request, but the headers may be useful.
+request:
+  url: "{{baseUrl}}/courses/:id"
+  method: DELETE
+  headers:
+    - key: X-API-KEY
+      value: <API Key>
+      description: "Added as a part of security scheme: apikey"
+  pathVariables:
+    id: string
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 204
+  statusText: No Content
+  body:
+    type: text
+    content: ""
+order: 1000

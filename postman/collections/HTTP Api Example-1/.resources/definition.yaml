@@ -1,0 +1,5 @@
+$kind: collection
+name: HTTP Api Example
+description: ""
+variables:
+  baseUrl: /http-api

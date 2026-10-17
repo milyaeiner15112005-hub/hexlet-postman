@@ -1,0 +1,10 @@
+$kind: http-request
+description: ""
+url: "{{baseUrl}}/new-test-path"
+method: GET
+body:
+  type: text
+  content: ""
+settings: {}
+examples: ./.resources/Test path.resources/examples
+order: 1000

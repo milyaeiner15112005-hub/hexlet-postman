@@ -1,0 +1,19 @@
+$kind: http-example
+name: The server cannot find the requested resource.
+request:
+  url: "{{baseUrl}}/tasks/:id?select=string"
+  method: GET
+  queryParams:
+    select: string
+  pathVariables:
+    id: string
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 404
+  statusText: Not Found
+  body:
+    type: text
+    content: ""
+order: 2000
